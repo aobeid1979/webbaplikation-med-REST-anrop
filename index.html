@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Placeholder Posts for GitHub Pagess API Examples</title>
+    <title>Futurama api</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -16,7 +16,17 @@
 
 
             </div>
-            <button id="Btn-character">Create</button>
+            <div id="create-char">
+                <h3>Add new Characters</h3>
+                <form id="charForm">
+                    <label for="charName">Name</label>
+                    <input type="text" id="charName" required>
+                    <label for="charHome">Homeworld</label>
+                    <input type="text" id="charHome" required>
+                    <button type="submit">Create</button>
+                </form>
+
+            </div>
 
         </div>
 
@@ -24,7 +34,19 @@
             <h2>Episodes</h2>
             <div id="epi-posts">
                 <div id="posts"></div>
-                <button>Create</button>
+                <div id="create-epi">
+                    <h3>Add new episodes</h3>
+                    <form id="epiForm">
+                        <label for="epiTitle">Title</label>
+                        <input type="text" id="epiTitle" required>
+                        <label for="epiSeason">Season</label>
+                        <input type="number" id="epiSeason" required>
+                        <label for="epiEpisode">Episode</label>
+                        <input type="number" id="epiEpisode" required>
+                        <button type="submit">Create</button>
+                    </form>
+
+                </div>
 
             </div>
         </div>
