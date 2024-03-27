@@ -3,59 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Futurama api</title>
+    <title>Futurama Characters and Episodes</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="container-all">
 
-      <div id="container-char" style="background-color: brown;">
-        <h2>Characters</h2>
-           <div id="Char-posts">
-              <h1>Placeholder Posts</h1>
+    <h1>Futurama Characters and Episodes</h1>
 
+    <hr>
 
-            </div>
-            <div id="create-char">
-                <h3>Add new Characters</h3>
-                <form id="charForm">
-                    <label for="charName">Name</label>
-                    <input type="text" id="charName" required>
-                    <label for="charHome">Homeworld</label>
-                    <input type="text" id="charHome" required>
-                    <button type="submit">Create</button>
-                </form>
-
-            </div>
-
-        </div>
-
-        <div id="container-epi" style="background-color: blue;">
-            <h2>Episodes</h2>
-            <div id="epi-posts">
-                <div id="posts"></div>
-                <div id="create-epi">
-                    <h3>Add new episodes</h3>
-                    <form id="epiForm">
-                        <label for="epiTitle">Title</label>
-                        <input type="text" id="epiTitle" required>
-                        <label for="epiSeason">Season</label>
-                        <input type="number" id="epiSeason" required>
-                        <label for="epiEpisode">Episode</label>
-                        <input type="number" id="epiEpisode" required>
-                        <button type="submit">Create</button>
-                    </form>
-
-                </div>
-
-            </div>
-        </div>
-
-     <script src="api-client.js"></script>
-     <script src="app.js"></script>
+    <h2>Characters</h2>
+    <div id="characters"></div>
+    <div id="create-char">
+        <h3>Add new Characters</h3>
+        <form id="charForm">
+            <label for="charName">Name</label>
+            <input type="text" id="charName" required>
+            <label for="charHome">Homeworld</label>
+            <input type="text" id="charHome" required>
+            <button type="submit">Create</button>
+        </form>
 
     </div>
 
-    
+    <h2>Episodes</h2>
+    <div id="episodes"></div>
+    <div id="create-epi">
+        <h3>Add new episodes</h3>
+        <form id="epiForm">
+            <label for="epiTitle">Title</label>
+            <input type="text" id="epiTitle" required>
+            <label for="epiSeason">Season</label>
+            <input type="number" id="epiSeason" required>
+            <label for="epiEpisode">Episode</label>
+            <input type="number" id="epiEpisode" required>
+            <button type="submit">Create</button>
+        </form>
+
+    </div>
+
+    <h2>Questions</h2>
+    <div id="questions"></div>
+
+    <script src="api-client.js"></script>
+    <script src="app.js"></script>
+
 </body>
 </html>
