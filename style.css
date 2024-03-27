@@ -101,39 +101,6 @@
 	color: #333;
 }
 
-.question-card {
-	min-height: 12rem;
-	max-width: 25rem;
-	border: 1px solid #ccc;
-	padding: 20px;
-	margin: 10px auto;
-	border-radius: 5px;
-	background-color: #f9f9f9;
-	box-shadow: #666 5px 5px 15px;
-}
-
-.question-title {
-	font-size: 24px;
-	color: #333;
-	margin-bottom: 10px;
-}
-
-.question-info {
-	font-size: 16px;
-	color: #666;
-}
-
-.question-info span {
-	font-weight: bold;
-	color: #333;
-}
-
-#questions {
-	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	gap: 20px;
-}
-
 .modal {
 	position: fixed;
 	z-index: 1;
@@ -266,22 +233,19 @@
 }
 
 @media screen and (max-width: 1000px) {
-	#characters,
-	#questions {
+	#characters {
 		grid-template-columns: repeat(3, 1fr);
 	}
 }
 
 @media screen and (max-width: 768px) {
-	#characters,
-	#questions {
+	#characters {
 		grid-template-columns: repeat(2, 1fr);
 	}
 }
 
 @media screen and (max-width: 480px) {
-	#characters,
-	#questions {
+	#characters {
 		grid-template-columns: 1fr;
 	}
 }

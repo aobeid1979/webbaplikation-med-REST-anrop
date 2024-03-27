@@ -1,7 +1,6 @@
 // Hämta och visa poster från API
 let characters;
 let episodes;
-let questions;
 
 (async () => {
 	characters = await API.getCharacters();
@@ -9,9 +8,6 @@ let questions;
 
 	episodes = await API.getEpisodes();
 	episodes.forEach(addEpisodeToPage);
-
-	questions = await API.getQuestions();
-	questions.forEach(addQuestionToPage);
 })();
 
 // Funktion för att lägga till karaktärer på sidan
@@ -124,23 +120,6 @@ function addEpisodeToPage(episode) {
 		});
 	});
 	episodesContainer.appendChild(episodeElement);
-}
-
-// Funktion för att lägga till frågor på sidan
-const questionsContainer = document.getElementById("questions");
-
-function addQuestionToPage(question) {
-	const questionElement = document.createElement("div");
-	questionElement.innerHTML = `
-        <div class="question-card" id="${question.id}">
-            <h3 class="question-title">${question.question}</h3>
-            <p class="question-info">Möjliga svar: <span>${question.possibleAnswers.join(
-							", "
-						)}</span></p>
-            <p class="question-info">Korrekt svar: <span>${question.correctAnswer}</span></p>
-        </div>`;
-
-	questionsContainer.appendChild(questionElement);
 }
 
 function deleteCharacter(characterId) {
