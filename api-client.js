@@ -20,19 +20,10 @@ const API = {
 	async getCharacters() {
 		return await getJson(API_URLS.characters);
 	},
-	async getCharacterById(id) {
-		return await getJson(`${API_URLS.characters}${id}`);
-	},
 	async getEpisodes() {
 		return await getJson(API_URLS.episodes);
 	},
-	async getQuestionById(id) {
-		return await getJson(API_URLS.episodes + id);
-	},
 	async getQuestions() {
 		return await getJson(API_URLS.questions);
-	},
-	async getEpisodeById(id) {
-		return await getJson(API_URLS.episodes + id);
 	},
 };

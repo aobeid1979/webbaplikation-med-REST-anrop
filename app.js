@@ -19,8 +19,9 @@ const charactersContainer = document.getElementById("characters");
 
 function addCharacterToPage(character) {
 	const characterElement = document.createElement("div");
+	characterElement.id = character.id;
 	characterElement.innerHTML = `
-        <div class="character-card">
+        <div class="character-card"">
             <h3 class="character-name">${character.name.first} ${character.name.middle} ${character.name.last}</h3>
             <p class="character-info">Age: <span>${character.age}</span></p>
             <p class="character-info">Gender: <span>${character.gender}</span></p>
@@ -32,20 +33,16 @@ function addCharacterToPage(character) {
 	characterElement.addEventListener("click", function () {
 		const result = characters.find((c) => c.id === character.id);
 
-		// Create modal
 		const modal = document.createElement("div");
 		modal.classList.add("modal");
 
-		// Create modal content
 		const modalContent = document.createElement("div");
 		modalContent.classList.add("modal-content");
 
-		// Add image to modal content
 		const image = document.createElement("img");
 		image.src = result.images.main;
 		modalContent.appendChild(image);
 
-		// Add details to modal content
 		const details = document.createElement("p");
 		details.innerHTML = `
         Name: ${result.name.first} ${result.name.middle} ${result.name.last} <br>
@@ -61,13 +58,17 @@ function addCharacterToPage(character) {
 		quotes.innerHTML = `Quotes: <br> ${randomQuotes.join("<br>")}`;
 		modalContent.appendChild(quotes);
 
-		// Add modal content to modal
+		const button = document.createElement("button");
+		button.classList.add("delete-button");
+		button.innerHTML = "Delete";
+		button.addEventListener("click", function () {
+			modal.remove();
+			deleteCharacter(result.id);
+		});
+		modalContent.appendChild(button);
+
 		modal.appendChild(modalContent);
-
-		// Add modal to body
 		document.body.appendChild(modal);
-
-		// Add event listener to close modal when clicked outside of modal content
 		modal.addEventListener("click", function (event) {
 			if (event.target === modal) {
 				modal.remove();
@@ -95,32 +96,27 @@ function addEpisodeToPage(episode) {
 	episodeElement.addEventListener("click", function () {
 		const result = episodes.find((e) => e.id === episode.id);
 
-		// Create modal
 		const modal = document.createElement("div");
 		modal.classList.add("modal");
 
-		// Create modal content
 		const modalContent = document.createElement("div");
 		modalContent.classList.add("modal-content");
 
-		// Add details to modal content
-		const details = document.createElement("p");
+		const details = document.createElement("div");
+		details.classList.add("episode-details");
 		details.innerHTML = `
-        Title: ${result.title} <br>
-        Number: ${result.number} <br>
-        Writers: ${result.writers} <br>
-        Original Air Date: ${result.originalAirDate} <br>
-        Description: ${result.desc}
-    `;
+    <h2>${result.title}</h2>
+    <p><strong>Number:</strong> ${result.number}</p>
+    <p><strong>Writers:</strong> ${result.writers}</p>
+    <p><strong>Original Air Date:</strong> ${result.originalAirDate}</p>
+    <p><strong>Description:</strong> ${result.desc}</p>
+`;
 		modalContent.appendChild(details);
 
-		// Add modal content to modal
 		modal.appendChild(modalContent);
 
-		// Add modal to body
 		document.body.appendChild(modal);
 
-		// Add event listener to close modal when clicked outside of modal content
 		modal.addEventListener("click", function (event) {
 			if (event.target === modal) {
 				modal.remove();
@@ -144,12 +140,10 @@ function addQuestionToPage(question) {
             <p class="question-info">Korrekt svar: <span>${question.correctAnswer}</span></p>
         </div>`;
 
-	questionElement.addEventListener("click", function () {
-		fetch(API.getQuestionById(question.id))
-			.then((response) => response.json())
-			.then((data) => console.log(data))
-			.catch((error) => console.error("Error:", error));
-	});
-
 	questionsContainer.appendChild(questionElement);
+}
+
+function deleteCharacter(characterId) {
+	const character = document.getElementById(characterId);
+	character.remove();
 }
