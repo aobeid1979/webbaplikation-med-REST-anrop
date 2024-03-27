@@ -5,6 +5,12 @@
 	font: 16px "Roboto", sans-serif;
 }
 
+#header {
+	padding: 1rem;
+	background-color: #007bff;
+	color: #fff;
+	border-bottom: #333 1px solid;
+}
 .h1 {
 	font-size: 3rem;
 	margin: 2rem;
@@ -167,6 +173,96 @@
 .episode-details h2 {
 	font-size: 2rem;
 	font-weight: bold;
+}
+
+#create-char {
+	width: 300px;
+	margin: 4rem auto;
+	padding: 20px;
+	background-color: #f8f9fa;
+	border-radius: 5px;
+	box-shadow: #666 2px 2px 15px;
+}
+
+#create-char h3 {
+	text-align: center;
+	color: #111;
+}
+
+#charForm {
+	display: flex;
+	flex-direction: column;
+}
+
+#charForm label {
+	margin-bottom: 5px;
+	color: #111;
+}
+
+#charForm input {
+	margin-bottom: 15px;
+	padding: 10px;
+	border: 1px solid #ced4da;
+	border-radius: 5px;
+}
+
+#charForm button {
+	font-size: 1.5rem;
+	padding: 10px;
+	color: #fff;
+	background-color: #007bff;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+#charForm button:hover {
+	background-color: #0056b3;
+}
+
+#epiForm {
+	display: flex;
+	flex-direction: column;
+}
+
+#epiForm label {
+	margin-bottom: 5px;
+	color: #111;
+}
+
+#epiForm input {
+	margin-bottom: 15px;
+	padding: 10px;
+	border: 1px solid #ced4da;
+	border-radius: 5px;
+}
+
+#epiForm button {
+	font-size: 1.5rem;
+	padding: 10px;
+	color: #fff;
+	background-color: #007bff;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+#epiForm button:hover {
+	background-color: #0056b3;
+}
+
+#create-epi {
+	width: 300px;
+	margin: 20px auto;
+	padding: 20px;
+	background-color: #f8f9fa;
+	border-radius: 5px;
+	box-shadow: #666 2px 2px 15px;
+}
+
+#create-epi h3 {
+	text-align: center;
+	color: #111;
 }
 
 @media screen and (max-width: 1000px) {

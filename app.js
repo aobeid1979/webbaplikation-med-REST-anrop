@@ -143,49 +143,42 @@ function addQuestionToPage(question) {
 	questionsContainer.appendChild(questionElement);
 }
 
-
 function deleteCharacter(characterId) {
 	const character = document.getElementById(characterId);
 	character.remove();
 }
 
-
-
-
-
 //create new character
-document.getElementById('charForm').addEventListener('submit', async (event) => {
-    event.preventDefault();
+document.getElementById("charForm").addEventListener("submit", function (event) {
+	event.preventDefault();
 
-    const charName = document.getElementById('charName').value;
-    const charHome = document.getElementById('charHome').value;
+	const charName = document.getElementById("charName").value;
+	const charHome = document.getElementById("charHome").value;
+	this.reset();
 
-    
-    const newCharElement = document.createElement("div");
+	const newCharElement = document.createElement("div");
 	newCharElement.innerHTML = `
     <div class="character-card">
-            <h3 class="character-name">${charName}</h3>
-            <p class="character-info">Home Planet: <span>${charHome}</span></p>
-            
-        </div>`
-    document.getElementById("characters").appendChild(newCharElement);
-    
+      <h3 class="character-name">${charName}</h3>
+      <p class="character-info">Home Planet: <span>${charHome}</span></p>
+    </div>`;
+	document.getElementById("characters").appendChild(newCharElement);
 });
 
 //create episode
-document.getElementById('epiForm').addEventListener('submit', async (event) => {
-    event.preventDefault();
+document.getElementById("epiForm").addEventListener("submit", function (event) {
+	event.preventDefault();
 
-    const epiTitle = document.getElementById('epiTitle').value;
-    const epiSeason = document.getElementById('epiSeason').value;
-    const epiEpisode = document.getElementById('epiEpisode').value;
+	const epiTitle = document.getElementById("epiTitle").value;
+	const epiSeason = document.getElementById("epiSeason").value;
+	const epiEpisode = document.getElementById("epiEpisode").value;
+	this.reset();
 
-    const newCharElement = document.createElement("div");
+	const newCharElement = document.createElement("div");
 	newCharElement.innerHTML = `
     <div class="episode-card">
-            <h3 class="episode-title">${epiTitle}</h3>
-            <p class="episode-info">Nummer: <span>${epiSeason +" - "+ epiEpisode}</span></p>
-            
-        </div>`
-    document.getElementById("episodes").appendChild(newCharElement);
+      <h3 class="episode-title">${epiTitle}</h3>
+      <p class="episode-info">Nummer: <span>${epiSeason + " - " + epiEpisode}</span></p>
+    </div>`;
+	document.getElementById("episodes").appendChild(newCharElement);
 });
