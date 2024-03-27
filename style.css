@@ -1,3 +1,22 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font: 16px "Roboto", sans-serif;
+}
+
+.h1 {
+	font-size: 3rem;
+	margin: 2rem;
+	text-align: center;
+}
+
+.titles {
+	text-align: center;
+	font-size: 2rem;
+	margin: 2rem;
+}
+
 .character-card {
 	max-width: 25rem;
 	border: 1px solid #ccc;
@@ -9,8 +28,7 @@
 }
 
 .character-card:hover,
-.episode-card:hover,
-.question-card:hover {
+.episode-card:hover {
 	transform: scale(1.05);
 	transition: transform 0.3s;
 	cursor: pointer;
@@ -30,6 +48,19 @@
 .character-info span {
 	font-weight: bold;
 	color: #333;
+}
+
+.delete-button {
+	background-color: #f44336;
+	color: #000;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.delete-button:hover {
+	background-color: #d20000;
 }
 
 #characters {
@@ -110,19 +141,32 @@
 
 .modal-content {
 	display: flex;
+	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	gap: 4rem;
 	background-color: #fefefe;
-	margin: 15% auto;
+	margin: 1rem auto;
 	padding: 20px;
 	border: 1px solid #888;
-	/* max-width: 30rem; */
+	max-width: 40rem;
 }
 
 .modal-content img {
-	width: 5rem;
+	width: 10rem;
 	height: auto;
+}
+
+.episode-details {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 1rem;
+}
+.episode-details h2 {
+	font-size: 2rem;
+	font-weight: bold;
 }
 
 @media screen and (max-width: 1000px) {
