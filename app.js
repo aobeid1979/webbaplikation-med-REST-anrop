@@ -154,6 +154,8 @@ function addQuestionToPage(question) {
 	questionsContainer.appendChild(questionElement);
 }
 
+
+
 //create new character
 document.getElementById('charForm').addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -217,3 +219,4 @@ document.getElementById('charForm').addEventListener('submit', async (event) => 
         console.error('Error creating post:', error);
     }
 });
+
