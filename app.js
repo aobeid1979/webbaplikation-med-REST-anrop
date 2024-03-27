@@ -151,36 +151,7 @@ function deleteCharacter(characterId) {
 
 
 
-//create new character
-document.getElementById('charForm').addEventListener('submit', async (event) => {
-    event.preventDefault();
 
-    const charName = document.getElementById('charName').value;
-    const charHome = document.getElementById('charHome').value;
-
-    const CharPostData = {
-        charName,
-        charHome
-    };
-
-    try {
-        const response = await fetch('https://da-demo.github.io/api/futurama/characters/',{
-            method: 'POST',
-            body: JSON.stringify(CharPostData),
-            headers:{
-                'Content-Type': 'application/json'
-            }
-        });
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const charPost = await response.json();
-        console.log('post created:', charPost);
-        alert('The post was created, details logged in console.');
-    }  catch (error) {
-        console.error('Error creating post:', error);
-    }
-});
 
 //create new character
 document.getElementById('charForm').addEventListener('submit', async (event) => {
