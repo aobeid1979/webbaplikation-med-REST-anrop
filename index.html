@@ -24,6 +24,35 @@
 		<h2 class="titles">Questions</h2>
 		<div id="questions"></div>
 
+    <div id="create-char">
+        <h3>Add new Characters</h3>
+        <form id="charForm">
+            <label for="charName">Name</label>
+            <input type="text" id="charName" required>
+            <label for="charHome">Homeworld</label>
+            <input type="text" id="charHome" required>
+            <button type="submit">Create</button>
+        </form>
+
+    </div>
+
+    <h2>Episodes</h2>
+    <div id="episodes"></div>
+    <div id="create-epi">
+        <h3>Add new episodes</h3>
+        <form id="epiForm">
+            <label for="epiTitle">Title</label>
+            <input type="text" id="epiTitle" required>
+            <label for="epiSeason">Season</label>
+            <input type="number" id="epiSeason" required>
+            <label for="epiEpisode">Episode</label>
+            <input type="number" id="epiEpisode" required>
+            <button type="submit">Create</button>
+        </form>
+
+    </div>
+
+
 		<script src="api-client.js"></script>
 		<script src="app.js"></script>
 	</body>
