@@ -1,37 +1,29 @@
-const BASE_URL = 'https://jsonplaceholder.typicode.com/';
+const BASE_URL = 'https://da-demo.github.io/api/futurama/';
 
 const API_URLS = {
-    users: `${BASE_URL}users`,
-    posts: `${BASE_URL}posts`
+    characters: `${BASE_URL}characters/`,
+    episodes: `${BASE_URL}episodes/`,
+    questions: `${BASE_URL}questions/`
 };
 
-async function getJson(url, start, end){
+async function getJson(url) {
     const response = await fetch(url);
 
-    if(!response.ok){
-        throw new Error (`Could not get ${url}. \nStatus: ${response.status}`);
+    if (!response.ok) {
+        throw new Error(`Could not get ${url}. \nStatus: ${response.status}`);
     }
-    const items = await response.json();
-    return items.slice(start, end);
 
+    return await response.json();
 }
-
-
-   
-///API 
 
 const API = {
-    async getPosts(start = 0, end = 10){
-        return await getJson(API_URLS.posts, start, end);
+    async getCharacters() {
+        return await getJson(API_URLS.characters);
     },
-    async getUsers(start = 0, end = 3){
-        return await getJson(API_URLS.users, start, end);
+    async getEpisodes() {
+        return await getJson(API_URLS.episodes);
     },
-
-}
-
-
-
-
-
-
+    async getQuestions() {
+        return await getJson(API_URLS.questions);
+    }
+};
