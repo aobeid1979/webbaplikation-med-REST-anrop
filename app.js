@@ -63,6 +63,31 @@ function addCharacterToPage(character) {
 		});
 		modalContent.appendChild(button);
 
+		const editForm = document.createElement("form");
+		editForm.innerHTML = `
+        <label for="editName">Name:</label>
+        <input type="text" id="editName" name="editName" value="${result.name.first}">
+        <label for="editHome">Home Planet:</label>
+        <input type="text" id="editHome" name="editHome" value="${result.homePlanet}">
+				`;
+
+		editForm.addEventListener("submit", function (event) {
+			modal.remove();
+			event.preventDefault();
+			UpdateCharacter(result.id);
+			console.log("Update");
+		});
+		modalContent.appendChild(editForm);
+
+		const editButton = document.createElement("button");
+		editButton.classList.add("edit-button");
+		editButton.innerHTML = "Edit";
+		editButton.addEventListener("click", function () {
+			UpdateCharacter(result.id);
+			modal.remove();
+		});
+		modalContent.appendChild(editButton);
+
 		modal.appendChild(modalContent);
 		document.body.appendChild(modal);
 		modal.addEventListener("click", function (event) {
@@ -109,6 +134,21 @@ function addEpisodeToPage(episode) {
 `;
 		modalContent.appendChild(details);
 
+		const editForm = document.createElement("form");
+		editForm.innerHTML = `
+    <label for="editTitle">Title:</label>
+    <input type="text" id="editTitle" name="editTitle" value="${episode.title}">
+    <label for="editSeason">Nummer:</label>
+    <input type="text" id="editSeason" name="editSeason" value="${episode.number}">
+    <label for="editEpisodes">Description:</label>
+    <input type="text" id="editEpisodes" name="editEpisodes" value="${episode.desc}">
+    <input type="submit" value="Update">`;
+		editForm.addEventListener("submit", function (event) {
+			event.preventDefault();
+			UpdateEpisode(episode.id);
+		});
+		modalContent.appendChild(editForm);
+
 		modal.appendChild(modalContent);
 
 		document.body.appendChild(modal);
@@ -133,15 +173,83 @@ document.getElementById("charForm").addEventListener("submit", function (event) 
 
 	const charName = document.getElementById("charName").value;
 	const charHome = document.getElementById("charHome").value;
+	const id = new Date().getTime();
+	const character = {
+		id,
+		name: { first: charName },
+		homePlanet: charHome,
+		age: "",
+		gender: "",
+		species: "",
+		occupation: "",
+		sayings: [],
+	};
+	characters.push(character);
 	this.reset();
 
 	const newCharElement = document.createElement("div");
+	newCharElement.id = id;
 	newCharElement.innerHTML = `
     <div class="character-card">
       <h3 class="character-name">${charName}</h3>
       <p class="character-info">Home Planet: <span>${charHome}</span></p>
     </div>`;
 	document.getElementById("characters").appendChild(newCharElement);
+	newCharElement.addEventListener("click", function () {
+		const modal = document.createElement("div");
+		modal.classList.add("modal");
+
+		const modalContent = document.createElement("div");
+		modalContent.classList.add("modal-content");
+
+		const details = document.createElement("p");
+		details.innerHTML = `
+        Name: ${charName} <br>
+        Home Planet: ${charHome} 
+    `;
+		modalContent.appendChild(details);
+
+		const button = document.createElement("button");
+		button.classList.add("delete-button");
+		button.innerHTML = "Delete";
+		button.addEventListener("click", function () {
+			modal.remove();
+			deleteCharacter(id);
+		});
+		modalContent.appendChild(button);
+
+		const editForm = document.createElement("form");
+		editForm.innerHTML = `
+        <label for="editName">Name:</label>
+        <input type="text" id="editName" name="editName" value="${charName}">
+        <label for="editHome">Home Planet:</label>
+        <input type="text" id="editHome" name="editHome" value="${charHome}">
+				`;
+
+		editForm.addEventListener("submit", function (event) {
+			event.preventDefault();
+			modal.remove();
+			UpdateCharacter(id);
+		});
+		modalContent.appendChild(editForm);
+
+		const editButton = document.createElement("button");
+		editButton.classList.add("edit-button");
+		editButton.innerHTML = "Edit";
+		editButton.addEventListener("click", function () {
+			UpdateCharacter(id);
+			modal.remove();
+		});
+		modalContent.appendChild(editButton);
+
+		modal.appendChild(modalContent);
+		document.body.appendChild(modal);
+		modal.addEventListener("click", function (event) {
+			if (event.target === modal) {
+				modal.remove();
+			}
+		});
+	});
 });
 
 //create episode
@@ -161,3 +269,58 @@ document.getElementById("epiForm").addEventListener("submit", function (event) {
     </div>`;
 	document.getElementById("episodes").appendChild(newCharElement);
 });
+
+//Update the original characters
+function UpdateCharacter(characterId) {
+	// Find the character object in the characters array
+	const character = characters.find((c) => c.id === characterId);
+	if (!character) {
+		console.error(`No character found with id ${characterId}`);
+		return;
+	}
+
+	// Update the character object
+	const charName = document.getElementById("editName").value;
+	const charHome = document.getElementById("editHome").value;
+	character.name.first = charName;
+	character.homePlanet = charHome;
+
+	// Find the character element in the DOM
+	const characterElement = document.getElementById(characterId);
+	if (!characterElement) {
+		console.error(`No character element found with id ${characterId}`);
+		return;
+	}
+
+	// Update the character element
+	characterElement.innerHTML = `
+        <div class="character-card">
+            <h3 class="character-name">${charName}</h3>
+            <p class="character-info">Age: <span>${character.age}</span></p>
+            <p class="character-info">Gender: <span>${character.gender}</span></p>
+            <p class="character-info">Species: <span>${character.species}</span></p>
+            <p class="character-info">Home Planet: <span>${charHome}</span></p>
+            <p class="character-info">Occupation: <span>${character.occupation}</span></p>
+        </div>`;
+}
+
+function UpdateEpisode(episodeId) {
+	// Find the episode element in the DOM
+	const episodeElement = document.getElementById(episodeId);
+	if (!episodeElement) {
+		console.error(`No episode element found with id ${episodeId}`);
+		return;
+	}
+
+	// Update the episode details
+	const episodeTitle = document.getElementById("editTitle").value;
+	const episodeNumber = document.getElementById("editSeason").value;
+	const episodeDesc = document.getElementById("editEpisodes").value;
+
+	// Update the episode element
+	episodeElement.innerHTML = `
+        <h2>${episodeTitle}</h2>
+        <p><strong>Number:</strong> ${episodeNumber}</p>
+        <p><strong>Description:</strong> ${episodeDesc}</p>
+    `;
+}
