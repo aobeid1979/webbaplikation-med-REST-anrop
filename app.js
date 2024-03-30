@@ -75,7 +75,6 @@ function addCharacterToPage(character) {
 			modal.remove();
 			event.preventDefault();
 			UpdateCharacter(result.id);
-			console.log("Update");
 		});
 		modalContent.appendChild(editForm);
 
@@ -105,8 +104,9 @@ const episodesContainer = document.getElementById("episodes");
 
 function addEpisodeToPage(episode) {
 	const episodeElement = document.createElement("div");
+	episodeElement.id = episode.id * 1000;
 	episodeElement.innerHTML = `
-        <div class="episode-card" id="${episode.id}">
+        <div class="episode-card">
             <h3 class="episode-title">${episode.title}</h3>
             <p class="episode-info">Nummer: <span>${episode.number}</span></p>
             <p class="episode-info">Författare: <span>${episode.writers}</span></p>
@@ -140,17 +140,17 @@ function addEpisodeToPage(episode) {
     <input type="text" id="editTitle" name="editTitle" value="${episode.title}">
     <label for="editSeason">Nummer:</label>
     <input type="text" id="editSeason" name="editSeason" value="${episode.number}">
-       
     <input type="submit" value="Update">`;
+
 		editForm.addEventListener("submit", function (event) {
 			event.preventDefault();
-			UpdateEpisode(episode.id);
+			const editTitle = document.getElementById("editTitle").value;
+			const editSeason = document.getElementById("editSeason").value;
+			modal.remove();
+			UpdateEpisode(episode.id, editTitle, editSeason);
 		});
-		
-
 		modalContent.appendChild(editForm);
 
-		
 		modal.appendChild(modalContent);
 
 		document.body.appendChild(modal);
@@ -261,15 +261,69 @@ document.getElementById("epiForm").addEventListener("submit", function (event) {
 	const epiTitle = document.getElementById("epiTitle").value;
 	const epiSeason = document.getElementById("epiSeason").value;
 	const epiEpisode = document.getElementById("epiEpisode").value;
+	const id = new Date().getTime();
+	const episode = {
+		id: id,
+		title: epiTitle,
+		number: epiSeason,
+		writers: "",
+		originalAirDate: "",
+		desc: "",
+	};
+	episodes.push(episode);
 	this.reset();
 
-	const newCharElement = document.createElement("div");
-	newCharElement.innerHTML = `
+	const newEpisodeElement = document.createElement("div");
+	newEpisodeElement.id = id * 1000;
+	newEpisodeElement.innerHTML = `
     <div class="episode-card">
       <h3 class="episode-title">${epiTitle}</h3>
       <p class="episode-info">Nummer: <span>${epiSeason + " - " + epiEpisode}</span></p>
     </div>`;
-	document.getElementById("episodes").appendChild(newCharElement);
+	document.getElementById("episodes").appendChild(newEpisodeElement);
+	newEpisodeElement.addEventListener("click", function () {
+		const modal = document.createElement("div");
+		modal.classList.add("modal");
+
+		const modalContent = document.createElement("div");
+		modalContent.classList.add("modal-content");
+
+		const details = document.createElement("div");
+		details.classList.add("episode-details");
+		details.innerHTML = `
+		<h2>${epiTitle}</h2>
+		<p><strong>Number:</strong> ${epiSeason + " - " + epiEpisode}</p>
+		<p><strong>Writers:</strong> </p>
+		<p><strong>Original Air Date:</strong> </p>
+		<p><strong>Description:</strong> </p>
+		`;
+		modalContent.appendChild(details);
+
+		const editForm = document.createElement("form");
+		editForm.innerHTML = `
+		<label for="editTitle">Title:</label>
+		<input type="text" id="editTitle" name="editTitle" value="${epiTitle}">
+		<label for="editSeason">Nummer:</label>
+		<input type="text" id="editSeason" name="editSeason" value="${epiSeason}">
+		<input type="submit" value="Update">`;
+
+		editForm.addEventListener("submit", function (event) {
+			event.preventDefault();
+			const editTitle = document.getElementById("editTitle").value;
+			const editSeason = document.getElementById("editSeason").value;
+			modal.remove();
+			UpdateEpisode(id, editTitle, editSeason);
+		});
+		modalContent.appendChild(editForm);
+
+		modal.appendChild(modalContent);
+		document.body.appendChild(modal);
+		modal.addEventListener("click", function (event) {
+			if (event.target === modal) {
+				modal.remove();
+			}
+		});
+	});
 });
 
 //Update the original characters
@@ -306,38 +360,30 @@ function UpdateCharacter(characterId) {
         </div>`;
 }
 
-function UpdateEpisode(episodeId) {
+function UpdateEpisode(episodeId, editTitle, editSeason) {
+	const episode = episodes.find((e) => e.id === episodeId);
+	if (!episode) {
+		console.error(`No episode found with id ${episodeId}`);
+		return;
+	}
+
+	episode.title = editTitle;
+	episode.number = editSeason;
+
 	// Find the episode element in the DOM
-	console.log(episodeId);
-		// Find the character object in the characters array
-		const episode = episodes.find((e) => e.id === episodeId);
-		if (!episode) {
-			console.error(`No character found with id ${episodeId}`);
-			return;
-		}
-	
-		// Update the character object
-		const editTitle = document.getElementById("editTitle").value;
-		const editSeason = document.getElementById("editSeason").value;
-		
-		episode.title = editTitle;
-		episode.number = editSeason;
-	
-		// Find the character element in the DOM
-		const episodeElement = document.getElementById(episodeId);
-		if (!episodeElement) {
-			console.error(`No episode element found with id ${episodeId}`);
-			return;
-		}
-	
-		// Update the episode element
-		episodeElement.innerHTML = `
-        <div class="episode-card" id="${episode.id}">
+	const episodeElement = document.getElementById(episodeId * 1000);
+	if (!episodeElement) {
+		console.error(`No episode element found with id ${episodeId}`);
+		return;
+	}
+
+	// Create a new div for the updated episode card
+	episodeElement.innerHTML = `
+        <div class="episode-card">
             <h3 class="episode-title">${editTitle}</h3>
             <p class="episode-info">Nummer: <span>${editSeason}</span></p>
             <p class="episode-info">Författare: <span>${episode.writers}</span></p>
             <p class="episode-info">Original sändningsdatum: <span>${episode.originalAirDate}</span></p>
             <p class="episode-info">Beskrivning: <span>${episode.desc}</span></p>
         </div>`;
-	}
-
+}
