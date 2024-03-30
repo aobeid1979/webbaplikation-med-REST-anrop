@@ -140,15 +140,17 @@ function addEpisodeToPage(episode) {
     <input type="text" id="editTitle" name="editTitle" value="${episode.title}">
     <label for="editSeason">Nummer:</label>
     <input type="text" id="editSeason" name="editSeason" value="${episode.number}">
-    <label for="editEpisodes">Description:</label>
-    <input type="text" id="editEpisodes" name="editEpisodes" value="${episode.desc}">
+       
     <input type="submit" value="Update">`;
 		editForm.addEventListener("submit", function (event) {
 			event.preventDefault();
 			UpdateEpisode(episode.id);
 		});
+		
+
 		modalContent.appendChild(editForm);
 
+		
 		modal.appendChild(modalContent);
 
 		document.body.appendChild(modal);
@@ -306,21 +308,36 @@ function UpdateCharacter(characterId) {
 
 function UpdateEpisode(episodeId) {
 	// Find the episode element in the DOM
-	const episodeElement = document.getElementById(episodeId);
-	if (!episodeElement) {
-		console.error(`No episode element found with id ${episodeId}`);
-		return;
+	console.log(episodeId);
+		// Find the character object in the characters array
+		const episode = episodes.find((e) => e.id === episodeId);
+		if (!episode) {
+			console.error(`No character found with id ${episodeId}`);
+			return;
+		}
+	
+		// Update the character object
+		const editTitle = document.getElementById("editTitle").value;
+		const editSeason = document.getElementById("editSeason").value;
+		
+		episode.title = editTitle;
+		episode.number = editSeason;
+	
+		// Find the character element in the DOM
+		const episodeElement = document.getElementById(episodeId);
+		if (!episodeElement) {
+			console.error(`No episode element found with id ${episodeId}`);
+			return;
+		}
+	
+		// Update the episode element
+		episodeElement.innerHTML = `
+        <div class="episode-card" id="${episode.id}">
+            <h3 class="episode-title">${editTitle}</h3>
+            <p class="episode-info">Nummer: <span>${editSeason}</span></p>
+            <p class="episode-info">Författare: <span>${episode.writers}</span></p>
+            <p class="episode-info">Original sändningsdatum: <span>${episode.originalAirDate}</span></p>
+            <p class="episode-info">Beskrivning: <span>${episode.desc}</span></p>
+        </div>`;
 	}
 
-	// Update the episode details
-	const episodeTitle = document.getElementById("editTitle").value;
-	const episodeNumber = document.getElementById("editSeason").value;
-	const episodeDesc = document.getElementById("editEpisodes").value;
-
-	// Update the episode element
-	episodeElement.innerHTML = `
-        <h2>${episodeTitle}</h2>
-        <p><strong>Number:</strong> ${episodeNumber}</p>
-        <p><strong>Description:</strong> ${episodeDesc}</p>
-    `;
-}
